@@ -1,4 +1,5 @@
 import { ObjPathProxy } from './obj-path-proxy';
+export * from './obj-path-proxy';
 
 const pathSymbol = Symbol('Object path');
 
