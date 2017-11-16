@@ -5,6 +5,7 @@ interface ITest {
   one: number;
   two: string;
   three: INestedTest;
+  four: INestedTest[];
 }
 
 interface INestedTest {
@@ -28,8 +29,9 @@ describe("getPath test", () => {
     const p = createProxy<ITest>();
     expect(getPath(p.one)).toEqual(['one']);
     expect(getPath(p.three.second)).toEqual(['three', 'second']);
+    expect(getPath(p.four[4].second)).toEqual(['four', 4, 'second']);
   })
-  it("Gets path from proxy", () => {
+  it("Get undefined", () => {
     expect(getPath({})).toBeUndefined();
   })
 })
