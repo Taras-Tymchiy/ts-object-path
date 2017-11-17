@@ -5,7 +5,7 @@ Generate strongly-typed deep property path in typescript. Access deep property b
 
 ## Install
 ```
-npm install object-path --save
+npm install ts-object-path --save
 ```
 
 ## Usage
