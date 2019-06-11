@@ -35,7 +35,7 @@ export function isProxy<TRoot, T>(value: any): value is ObjPathProxy<TRoot, T> {
 }
 
 export function get<TRoot, T>(object: TRoot, proxy: ObjProxyArg<TRoot, T>, defaultValue: T|null|undefined = undefined) {
-  return getPath(proxy).reduce((o, key) => o && o[key] || defaultValue, object as any) as T;
+  return getPath(proxy).reduce((o, key) => o && valueOrElseDefault(o[key], defaultValue), object as any) as T;
 }
 
 export function set<TRoot, T>(object: TRoot, proxy: ObjProxyArg<TRoot, T>, value: T): void {
@@ -48,3 +48,6 @@ export function set<TRoot, T>(object: TRoot, proxy: ObjProxyArg<TRoot, T>, value
   }, object);
 }
 
+export function valueOrElseDefault<T>(value: T, defaultValue: T):T {
+  return value !== null && value !== undefined ? value : defaultValue
+}
