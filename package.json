@@ -1,6 +1,6 @@
 {
-  "name": "ts-object-path",
-  "version": "0.1.2",
+  "name": "@xc1427/ts-object-path",
+  "version": "0.1.0",
   "description": "",
   "keywords": [],
   "main": "dist/ts-object-path.umd.js",
@@ -9,10 +9,10 @@
   "files": [
     "dist"
   ],
-  "author": "Taras Tymchii",
+  "author": ["Taras Tymchii", "XI Chen"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Taras-Tymchiy/ts-object-path.git"
+    "url": "https://github.com/xc1427/ts-object-path.git"
   },
   "license": "MIT",
   "engines": {
@@ -98,7 +98,7 @@
     "tslint": "^5.4.3",
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.7",
+    "typescript": "^3.0",
     "validate-commit-msg": "^2.12.2"
   }
 }
