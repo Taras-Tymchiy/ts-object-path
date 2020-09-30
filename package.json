@@ -1,6 +1,6 @@
 {
-  "name": "ts-object-path",
-  "version": "0.1.2",
+  "name": "@tran-simon/ts-object-path",
+  "version": "0.1.3",
   "description": "",
   "keywords": [],
   "main": "dist/ts-object-path.umd.js",
