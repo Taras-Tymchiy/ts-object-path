@@ -1,3 +1,27 @@
+# Fork of [ts-object-path](https://github.com/Taras-Tymchiy/ts-object-path) 
+
+Adds the '_path' and '_name' property to every ObjPathProxy objects.
+
+
+```typescript
+interface IExample extends ObjPath {
+  one: number;
+  two: string;
+  nested: IExample;
+  collection: IExample[];
+}
+
+const p = createProxy<IExample>();
+
+console.log(p.one._path); //  'one'
+console.log(p.nested.collection[2].one._path); //'nested/collection/2/one'
+console.log(p.one._name); //  'one'
+console.log(p.nested.collection[2].one._name); //'one'
+
+```
+
+
+
 # ts-object-path
 Generate strongly-typed deep property path in typescript. Access deep property by a path.
 
