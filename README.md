@@ -4,7 +4,7 @@ Adds the '_path' and '_name' property to every ObjPathProxy objects.
 
 
 ```typescript
-interface IExample extends ObjPath {
+interface IExample {
   one: number;
   two: string;
   nested: IExample;
