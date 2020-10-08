@@ -1,5 +1,6 @@
 export interface ObjPath {
-  _path: string
+  _pathString: string
+  _path: string[]
   _name: string
 }
 

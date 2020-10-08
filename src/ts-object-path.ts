@@ -16,6 +16,9 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<T, T> {
           return target[pathSymbol]
         }
         if (key === '_path') {
+          return path
+        }
+        if (key === '_pathString') {
           return path.join('/')
         }
         if (key === '_name') {
