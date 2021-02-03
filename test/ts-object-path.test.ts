@@ -134,3 +134,13 @@ describe("setValue test", () => {
     expect(o.four).toHaveLength(2);
   })
 })
+
+describe("regression tests", () => {
+  it("issue #3 get() returns undefined for value zero", () => {
+      const p = createProxy<ITest>();
+      const o: ITest = { one: 0 };
+      const v = get(o, p.one);
+      expect(v).toEqual(o.one);
+  })
+})
+
