@@ -43,7 +43,7 @@ export function get<TRoot, T>(
   proxy: ObjPathProxy<TRoot, T>,
   defaultValue: T | null | undefined = undefined
 ) {
-  return proxy._path.reduce((o, key) => (o && o[key]) || defaultValue, object as any) as T
+  return proxy._path.reduce((o, key) => (o && o[key]) || defaultValue, object as any) as T | undefined
 }
 
 export function set<TRoot, T>(object: TRoot, proxy: ObjPathProxy<TRoot, T>, value: T): void {
