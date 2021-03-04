@@ -38,7 +38,7 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<T, Recurs
 }
 
 
-export function get<TRoot, T>(
+export function get<T, TRoot={}>(
   object: TRoot,
   proxy: ObjPathProxy<TRoot, T>,
   defaultValue: T | null | undefined = undefined
@@ -46,7 +46,7 @@ export function get<TRoot, T>(
   return proxy._path.reduce((o, key) => (o && o[key]) || defaultValue, object as any) as T | undefined
 }
 
-export function set<TRoot, T>(object: TRoot, proxy: ObjPathProxy<TRoot, T>, value: T): void {
+export function set<T, TRoot={}>(object: TRoot, proxy: ObjPathProxy<TRoot, T>, value: T): void {
   proxy._path.reduce((o: any, key, index, keys) => {
     if (index < keys.length - 1) {
       o[key] = o[key] || (typeof keys[index + 1] === 'number' ? [] : {})
