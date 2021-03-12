@@ -4,7 +4,7 @@ export interface ObjPath {
   _name: string
 }
 
-export type ObjPathProxy<TRoot, T> = {
-  [P in keyof T]: ObjPathProxy<TRoot, Exclude<T[P], undefined>>
+export type ObjPathProxy<T> = {
+  [P in keyof T]: ObjPathProxy<Exclude<T[P], undefined>>
 } &
   ObjPath

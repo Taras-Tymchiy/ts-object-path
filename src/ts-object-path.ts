@@ -7,7 +7,7 @@ type RecursiveRequired<T> = {
   [P in keyof T]-?: RecursiveRequired<T[P]>;
 };
 
-export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<T, RecursiveRequired<T>> {
+export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<RecursiveRequired<T>> {
   const proxy = new Proxy(
     { [pathSymbol]: path },
     {
@@ -34,19 +34,19 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<T, Recurs
       }
     }
   )
-  return (proxy as any) as ObjPathProxy<T, RecursiveRequired<T>>
+  return (proxy as any) as ObjPathProxy<RecursiveRequired<T>>
 }
 
 
-export function get<T, TRoot={}>(
-  object: TRoot,
-  proxy: ObjPathProxy<TRoot, T>,
+export function get<T>(
+  object: any,
+  proxy: ObjPathProxy<T>,
   defaultValue: T | null | undefined = undefined
 ) {
   return proxy._path.reduce((o, key) => (o && o[key]) || defaultValue, object as any) as T | undefined
 }
 
-export function set<T, TRoot={}>(object: TRoot, proxy: ObjPathProxy<TRoot, T>, value: T): void {
+export function set<T>(object: any, proxy: ObjPathProxy<T>, value: T): void {
   proxy._path.reduce((o: any, key, index, keys) => {
     if (index < keys.length - 1) {
       o[key] = o[key] || (typeof keys[index + 1] === 'number' ? [] : {})
