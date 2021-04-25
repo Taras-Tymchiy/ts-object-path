@@ -21,7 +21,7 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<Recursive
         if (key === '_pathString') {
           return path.join('.')
         }
-        if(key === '_url'){
+        if(key === '_pathUrl'){
           return path.join('/')
         }
         if (key === '_name') {
