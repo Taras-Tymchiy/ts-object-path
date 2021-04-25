@@ -1,4 +1,5 @@
 export interface ObjPath {
+  _pathUrl: string
   _pathString: string
   _path: string[]
   _name: string
