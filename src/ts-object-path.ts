@@ -19,18 +19,28 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<Recursive
           return path
         }
         if (key === '_pathString') {
+          return path.join('.')
+        }
+        if(key === '_url'){
           return path.join('/')
         }
         if (key === '_name') {
           return path[path.length - 1]
         }
+
+        let keys: (string | symbol)[] = []
+
         if (typeof key === 'string') {
-          const intKey = parseInt(key, 10)
-          if (key === intKey.toString()) {
-            key = intKey
-          }
+          keys = key.split('.')
         }
-        return createProxy([...(path || []), key])
+        return createProxy([...(path || []), ...keys.map((key) => {
+          let newKey: string | symbol | number  = key;
+          const intKey = parseInt(key.toString(), 10)
+          if (key === intKey.toString()) {
+            newKey = intKey
+          }
+          return newKey;
+        })])
       }
     }
   )
