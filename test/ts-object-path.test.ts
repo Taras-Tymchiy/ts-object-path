@@ -57,7 +57,11 @@ describe("getValue test", () => {
     const v = get(o, createProxy<ITest>().three.second, 'default' as string);
     expect(v).toEqual('default');
   })
-
+  it('works with 0 value', ()=>{
+    const o: ITest = {one: 0};
+    const v = get(o, createProxy<ITest>().one, 1234);
+    expect(v).toEqual(0);
+  })
 })
 
 describe("setValue test", () => {

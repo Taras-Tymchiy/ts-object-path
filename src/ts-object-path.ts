@@ -53,13 +53,16 @@ export function get<T>(
   proxy: ObjPathProxy<T>,
   defaultValue: T | null | undefined = undefined
 ) {
-  return proxy._path.reduce((o, key) => (o && o[key]) || defaultValue, object as any) as T | undefined
+  return proxy._path.reduce((o, key) => {
+    const v = o && o[key];
+    return v != null ? v : defaultValue;
+  }, object as any) as T | undefined
 }
 
 export function set<T>(object: any, proxy: ObjPathProxy<T>, value: T): void {
   proxy._path.reduce((o: any, key, index, keys) => {
     if (index < keys.length - 1) {
-      o[key] = o[key] || (typeof keys[index + 1] === 'number' ? [] : {})
+      o[key] = o[key] != null ? o[key] : (typeof keys[index + 1] === 'number' ? [] : {})
       return o[key]
     }
     o[key] = value
