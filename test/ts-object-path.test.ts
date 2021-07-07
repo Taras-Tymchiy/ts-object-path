@@ -62,6 +62,15 @@ describe("getValue test", () => {
     const v = get(o, createProxy<ITest>().one, 1234);
     expect(v).toEqual(0);
   })
+  it('works with function as proxy', ()=>{
+    const o = { one: 5, three: { firrst: 4 }, four: [null, {firrst: 4}] };
+
+    expect(get(o, (p)=>p.one)).toEqual(5)
+    expect(get(o, (p)=>p.three)).toEqual({firrst: 4})
+    expect(get(o, (p)=>p.three.firrst)).toEqual(4)
+    expect(get(o, (p)=>p.four[0].firrst)).toBeUndefined()
+    expect(get(o, (p)=>p.four[1].firrst)).toEqual(4)
+  })
 })
 
 describe("setValue test", () => {
@@ -98,5 +107,19 @@ describe("setValue test", () => {
     set(o, createProxy<ITest>().four[1].firrst, 666);
     expect(o.four[1].firrst).toEqual(666);
     expect(o.four).toHaveLength(2);
+  })
+
+  it('works with function as proxy', ()=>{
+    const o: ITest = { one: 4 };
+    set(o, (p)=>p.one, 333);
+    set(o, (p)=>p.two, '222');
+    set(o, (p)=>p.three.firrst, 777);
+    set(o, (p)=>p.four[1].firrst, 666);
+    expect(o.one).toEqual(333);
+    expect(o.two).toEqual('222');
+    // @ts-ignore
+    expect(o.three.firrst).toEqual(777);
+    // @ts-ignore
+    expect(o.four[1].firrst).toEqual(666);
   })
 })

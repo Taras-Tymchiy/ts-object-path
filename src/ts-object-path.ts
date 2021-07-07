@@ -48,23 +48,30 @@ export function createProxy<T>(path: PropertyKey[] = []): ObjPathProxy<Recursive
 }
 
 
-export function get<T>(
-  object: any,
-  proxy: ObjPathProxy<T>,
+export function get<T, D = any>(
+  object: D,
+  proxy: ObjPathProxy<T> | ((path: ObjPathProxy<RecursiveRequired<D>>)=>ObjPathProxy<T>),
   defaultValue: T | null | undefined = undefined
 ) {
+  if (typeof proxy === 'function') {
+    proxy = proxy(createProxy<D>())
+  }
   return proxy._path.reduce((o, key) => {
     const v = o && o[key];
     return v != null ? v : defaultValue;
-  }, object as any) as T | undefined
+  }, object as any) as T | undefined;
 }
 
-export function set<T>(object: any, proxy: ObjPathProxy<T>, value: T): void {
+export function set<T, D = any>(object: D, proxy: ObjPathProxy<T> | ((path: ObjPathProxy<RecursiveRequired<D>>)=>ObjPathProxy<T>), value: Partial<T>): void {
+  if (typeof proxy === 'function') {
+    proxy = proxy(createProxy<D>())
+  }
+
   proxy._path.reduce((o: any, key, index, keys) => {
     if (index < keys.length - 1) {
       o[key] = o[key] != null ? o[key] : (typeof keys[index + 1] === 'number' ? [] : {})
       return o[key]
     }
     o[key] = value
-  }, object)
+  }, object);
 }
